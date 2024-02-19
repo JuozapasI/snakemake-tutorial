@@ -1,0 +1,6 @@
+data/*
+calls/*
+mapped_reads/*
+plots/*
+sorted_reads/*
+.snakemake/
