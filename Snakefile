@@ -7,11 +7,9 @@ rule all:
 rule download_data:
     output:
         "data/{sample}"
-    wildcard_constraints:
-        sample="genome\.fa|samples/[ABC]\.fastq"
     shell:
         "curl -L https://api.github.com/repos/snakemake/snakemake-tutorial-data/tarball -o snakemake-tutorial-data.tar.gz && "
-        "tar --wildcards -xf snakemake-tutorial-data.tar.gz --strip 1 '*/data/{wildcards.sample}' && "
+        "tar --wildcards -xf snakemake-tutorial-data.tar.gz --strip 1 '*/data' && "
         "rm snakemake-tutorial-data.tar.gz"
 
 
@@ -22,7 +20,7 @@ rule bwa_map:
     output:
         "mapped_reads/{sample}.bam"
     shell:
-        "bwa mem {input} | samtools view -Sb - > {output}"
+        "bwa mem {input} | samtools view -Sb > {output}"
 
 rule samtools_sort:
     input:
